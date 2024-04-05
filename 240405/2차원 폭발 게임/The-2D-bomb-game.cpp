@@ -8,8 +8,8 @@ using namespace std;
 int N, M, K;
 int board[101][101];
 bool visited[101][101];
-int dx[2] = { 0,0 };
-int dy[2] = {-1, 1 };
+int dx[1] = {0 };
+int dy[1] = {1 };
 int tmp[101][101];
 
 void initBoard() {
@@ -24,10 +24,13 @@ bool isAvailable(int cnt) {
 
 int getSameNumberAreaCnt(int y, int x) {
 	int cur = board[y][x];
+	if (cur == 0)
+		return 0;
+
 	int cnt = 1;
 	visited[y][x] = true;
 
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 1; i++) {
 		int ny = y + dy[i];
 		int nx = x + dx[i];
 
@@ -42,13 +45,12 @@ int getSameNumberAreaCnt(int y, int x) {
 void explosion(int y, int x) {
 	int cur = board[y][x];
 	board[y][x] = 0;
-	visited[y][x] = true;
 
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 1; i++) {
 		int ny = y + dy[i];
 		int nx = x + dx[i];
 
-		if (nx < 0 || nx >= N || ny < 0 || ny >= N || visited[ny][nx] || board[ny][nx] != cur)
+		if (nx < 0 || nx >= N || ny < 0 || ny >= N  || board[ny][nx] != cur)
 			continue;
 
 		explosion(ny, nx);
@@ -103,6 +105,20 @@ int getRestBombCnt() {
 	return ret;
 }
 
+bool makeExplosion() {
+	bool flag = false;
+	fill(&visited[0][0], &visited[0][0] + 101 * 101, false);
+
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < N; j++) {
+			if (!visited[i][j] && isAvailable(getSameNumberAreaCnt(i, j))) {
+				explosion(i, j);
+				flag = true;
+			}
+		}
+	return flag;
+}
+
 int main() {
 
 	ios_base::sync_with_stdio(false);
@@ -114,27 +130,21 @@ int main() {
 	initBoard();
 
 	while (K--) {
-		for(int i=0; i<N; i++)
-			for (int j = 0; j < N; j++) {
-				if (!visited[i][j] && isAvailable(getSameNumberAreaCnt(i,j))) {
-					fill(&visited[0][0], &visited[0][0] + 101 * 101, false);
-					explosion(i, j);
-				}
-			}
-		gravity();
+
+		while (makeExplosion()) {
+			gravity();
+		}
+
 		rotate();
 		gravity();
-
-		fill(&visited[0][0], &visited[0][0] + 101 * 101, false);
+		while (makeExplosion()) {
+			gravity();
+		}
 	}
 
-	for (int i = 0; i < N; i++)
-		for (int j = 0; j < N; j++) {
-			if (!visited[i][j] && isAvailable(getSameNumberAreaCnt(i, j))) {
-				fill(&visited[0][0], &visited[0][0] + 101 * 101, false);
-				explosion(i, j);
-			}
-		}
+	while (makeExplosion()) {
+		gravity();
+	}
 
 	cout << getRestBombCnt() << "\n";
 
