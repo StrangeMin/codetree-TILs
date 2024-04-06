@@ -23,6 +23,11 @@ void move(int d) {
 	int y = snake.front().first;
 	int x = snake.front().second;
 
+	int lastY = snake.back().first;
+	int lastX = snake.back().second;
+	visited[lastY][lastX] = false;
+	snake.pop_back();
+
 	int ny = y + dy[d];
 	int nx = x + dx[d];
 
@@ -36,12 +41,8 @@ void move(int d) {
 
 	if (board[ny][nx] == 2) {
 		board[ny][nx] = 0;
-		return;
-	}
-
-	visited[snake.back().first][snake.back().second] = false;
-	snake.pop_back();
-		
+		snake.push_back({ lastY, lastX });
+	}	
 }
 
 int main() {
