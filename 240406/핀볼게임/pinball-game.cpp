@@ -83,8 +83,8 @@ int main() {
 	//왼 -> 오
 	for (int i = 0; i < N; i++) {
 		dir = 2;
-		initYX(i,0);
-		t = 1;
+		initYX(i,-1);
+		t = 0;
 		while (move() != -1) {
 			changeDirection();
 		}
@@ -94,8 +94,8 @@ int main() {
 	// 위 -> 아
 	for (int i = 0; i < N; i++) {
 		dir = 3;
-		initYX(0, i);
-		t = 1;
+		initYX(-1, i);
+		t = 0;
 		while (move() != -1) {
 			changeDirection();
 		}
@@ -105,8 +105,8 @@ int main() {
 	// 오 -> 왼
 	for (int i = 0; i < N; i++) {
 		dir = 0;
-		initYX(i,N-1);
-		t = 1;
+		initYX(i,N);
+		t = 0;
 		while (move() != -1) {
 			changeDirection();
 		}
@@ -116,8 +116,8 @@ int main() {
 	// 아 -> 위
 	for (int i = 0; i < N; i++) {
 		dir = 1;
-		initYX(N-1, i);
-		t = 1;
+		initYX(N, i);
+		t = 0;
 		while (move() != -1) {
 			changeDirection();
 		}
