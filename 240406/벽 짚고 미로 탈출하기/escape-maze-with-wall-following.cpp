@@ -6,7 +6,7 @@
 #include <cmath>
 using namespace std;
 
-int N, dir,y,x;
+int N, dir, y, x;
 char board[101][101];
 int visited[101][101];
 int dx[4] = { -1,0,1,0 };
@@ -14,6 +14,7 @@ int dy[4] = { 0,-1,0,1 };
 bool done;
 bool cantEscape = false;
 int ret;
+int cnt;
 
 void turnLeft() {
 	dir = (dir + 3) % 4;
@@ -59,11 +60,7 @@ bool canMove() {
 void move() {
 	y = y + dy[dir];
 	x = x + dx[dir];
-	visited[y][x]++;
 	ret++;
-
-	if (visited[y][x] >= 100)
-		cantEscape = true;
 }
 
 void decideBehavior() {
@@ -110,7 +107,10 @@ int main() {
 	initBoard();
 
 	while (done == false && cantEscape == false) {
+		if (cnt >= 10000)
+			cantEscape = true;
 		decideBehavior();
+		cnt++;
 	}
 
 	if (cantEscape == true)
