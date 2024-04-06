@@ -62,7 +62,7 @@ void move() {
 	visited[y][x]++;
 	ret++;
 
-	if (visited[y][x] >= 2)
+	if (visited[y][x] >= 100)
 		cantEscape = true;
 }
 
