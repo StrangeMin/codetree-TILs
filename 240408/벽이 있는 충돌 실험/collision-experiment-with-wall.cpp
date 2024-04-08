@@ -9,14 +9,15 @@ using namespace std;
 
 int N, M, T;
 char board[51][51];
-char nextCnt[51][51];
+char nextDir[51][51];
+int nextCnt[51][51];
 int dx[4] = { -1, 0, 1, 0};
 int dy[4] = { 0,-1,0,1 };
 map<char, int> dir;
 
 void initBoard() {
 	fill(&board[0][0], &board[0][0] + 51 * 51, '0');
-	fill(&nextCnt[0][0], &nextCnt[0][0] + 51 * 51, '0');
+	fill(&nextDir[0][0], &nextDir[0][0] + 51 * 51, '0');
 
 	for (int i = 0; i < M; i++) {
 		int y, x;
@@ -28,10 +29,14 @@ void initBoard() {
 
 void copyBoard() {
 	for (int i = 0; i < N; i++)
-		for (int j = 0; j < N; j++)
-			board[i][j] = nextCnt[i][j];
-
-	fill(&nextCnt[0][0], &nextCnt[0][0] + 51 * 51, '0');
+		for (int j = 0; j < N; j++) {
+			if (nextCnt[i][j] <= 1)
+				board[i][j] = nextDir[i][j];
+			else
+				board[i][j] = '0';
+		}
+	fill(&nextCnt[0][0], &nextCnt[0][0] + 51 * 51, 0);
+	fill(&nextDir[0][0], &nextDir[0][0] + 51 * 51, '0');
 }
 
 char idxToChar(int idx) {
@@ -46,7 +51,7 @@ char idxToChar(int idx) {
 }
 
 bool isThereMarble(int y, int x) {
-	char point = nextCnt[y][x];
+	char point = nextDir[y][x];
 	return point == 'L' || point == 'U' || point == 'R' || point == 'D';
 }
 
@@ -62,29 +67,17 @@ void move(int y, int x) {
 	int nx = x + dx[curDir];
 
 	if (ny < 0 || ny >= N || nx < 0 || nx >= N) {
-		// 이미 구슬이 있으면 
-		// 구슬 삭제
-		// return
-		if (isThereMarble(y, x)) {
-			nextCnt[y][x] = '0';
-			return;
-		}
-
-		// 구슬 없으면 방향 반대로 바꿈
-		// return
 		char newDir = idxToChar((curDir + 2) % 4);
-		nextCnt[y][x] = newDir;
+		nextDir[y][x] = newDir;
+		nextCnt[y][x]++;
 		return;
 	}
 
 	// ny,nx로 이동
 	// 이동한 위치에 구슬 있으면
 	// 구슬 삭제
-	if (isThereMarble(ny, nx)) {
-		nextCnt[ny][nx] = '0';
-		return;
-	}
-	nextCnt[ny][nx] = idxToChar(curDir);
+	nextDir[ny][nx] = idxToChar(curDir);
+	nextCnt[ny][nx]++;
 }
 
 int getMarbleCnt() {
