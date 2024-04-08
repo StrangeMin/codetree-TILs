@@ -28,16 +28,16 @@ void initBoard() {
 }
 
 pair<int, int> findNextPosition(int y, int x) {
-	int tmp = -1;
+	int tmp = 0;
 	int ry=-1, rx=-1;
 	for (int i = 0; i < 8; i++) {
 		int nx = x + dx[i];
 		int ny = y + dy[i];
 
-		if (nx < 0 || nx >= N || ny < 0 || ny >= N)
+		if (nx < 0 || nx >= N || ny < 0 || ny >= N || maxNumberBoard[ny][nx] == 0)
 			continue;
 
-		if (board[ny][nx].size() && tmp < maxNumberBoard[ny][nx]) {
+		if (tmp < maxNumberBoard[ny][nx]) {
 			tmp = maxNumberBoard[ny][nx];
 			ry = ny;
 			rx = nx;
@@ -47,10 +47,7 @@ pair<int, int> findNextPosition(int y, int x) {
 }
 
 void setMaxNumber(int y, int x) {
-	if (board[y][x].size() == 0) {
-		maxNumberBoard[y][x] = 0;
-		return;
-	}
+	maxNumberBoard[y][x] = 0;
 	pair<int, int> pos = { y,x };
 	for (int i = 1; i <= N * N; i++) {
 		if (position[i] == pos) {
@@ -59,8 +56,8 @@ void setMaxNumber(int y, int x) {
 	}
 }
 
-void move(int curNum) {
-	pair<int,int> curPosition = position[curNum];
+void move(int targetNumber) {
+	pair<int,int> curPosition = position[targetNumber];
 	int y = curPosition.first;
 	int x = curPosition.second;
 
@@ -71,10 +68,9 @@ void move(int curNum) {
 		return;
 	}
 
-
 	stack<int> tmpStack;
 
-	while (board[y][x].size() && board[y][x].top() != curNum) {
+	while (board[y][x].size() && board[y][x].top() != targetNumber) {
 		int num = board[y][x].top();
 		board[y][x].pop();
 		tmpStack.push(num);
@@ -133,6 +129,12 @@ void printMaxNumber() {
 	}
 }
 
+void printPosition() {
+	for (int i = 1; i <= N*N; i++) {
+		cout << i << ": " << position[i].first << "," << position[i].second << "\n";
+	}
+}
+
 int main() {
 
 	ios_base::sync_with_stdio(false);
@@ -150,5 +152,6 @@ int main() {
 	}
 
 	printResult();
+	/*printPosition();*/
 
 }
