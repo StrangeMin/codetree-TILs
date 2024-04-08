@@ -38,7 +38,7 @@ pair<int, int> findNextPosition(int y, int x) {
 			continue;
 
 		if (board[ny][nx].size() && tmp < maxNumberBoard[ny][nx]) {
-			tmp = board[ny][nx].top();
+			tmp = maxNumberBoard[ny][nx];
 			ry = ny;
 			rx = nx;
 		}
@@ -47,8 +47,12 @@ pair<int, int> findNextPosition(int y, int x) {
 }
 
 void setMaxNumber(int y, int x) {
+	if (board[y][x].size() == 0) {
+		maxNumberBoard[y][x] = 0;
+		return;
+	}
 	pair<int, int> pos = { y,x };
-	for (int i = 1; i <= N; i++) {
+	for (int i = 1; i <= N * N; i++) {
 		if (position[i] == pos) {
 			maxNumberBoard[y][x] = max(maxNumberBoard[y][x], i);
 		}
@@ -115,6 +119,15 @@ void printBoard() {
 				cout << board[i][j].top() << " ";
 			else
 				cout << "0 ";
+		}
+		cout << "\n";
+	}
+}
+
+void printMaxNumber() {
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cout << maxNumberBoard[i][j] << " ";
 		}
 		cout << "\n";
 	}
