@@ -48,6 +48,10 @@ pair<int, int> findNextPosition(int y, int x) {
 
 void setMaxNumber(int y, int x) {
 	maxNumberBoard[y][x] = 0;
+	if (board[y][x].size() == 0) {
+		return;
+	}
+
 	pair<int, int> pos = { y,x };
 	for (int i = 1; i <= N * N; i++) {
 		if (position[i] == pos) {
@@ -152,6 +156,4 @@ int main() {
 	}
 
 	printResult();
-	/*printPosition();*/
-
 }
