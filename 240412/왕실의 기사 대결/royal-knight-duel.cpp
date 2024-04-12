@@ -105,9 +105,11 @@ void shiftKnight(int knightNumber, int dir) {
 				continue;
 
 			q.push({ ny,nx });
+			visited[ny][nx] = true;
 			
 		}
 	}
+
 
 	for (int i = 1; i <= N; i++) {
 		if (!knightVisited[i] && restLifePoint[i] > 0) {
@@ -115,8 +117,8 @@ void shiftKnight(int knightNumber, int dir) {
 			int x = knight[i].second;
 			dfs(y, x);
 		}
+	
 	}
-
 }
 
 void eraseKnight(int y, int x) {
@@ -192,7 +194,6 @@ void order(int knightNumber, int dir) {
 
 	// 데미지 계산
 	calculateDamage(knightNumber);
-
 }
 
 int main() {
