@@ -61,7 +61,7 @@ pair<int, int> selectAttacker() {
 
 pair<int, int> selectTarget() {
 	int damage = -1;
-	int y = 0, x = 0;
+	int y = 11, x = 11;
 	int latelyAttackTime = 1001;
 
 	for (int i = 0; i < N; i++) {
@@ -190,7 +190,7 @@ void attack(pair<int, int> attacker, pair<int,int> target, int curTime) {
 			nx %= M;
 			ny %= N;
 
-			if (board[ny][nx].first > 0) {
+			if (board[ny][nx].first > 0 && !(ny == attacker.first && nx == attacker.second)) {
 				board[ny][nx] = { max((board[ny][nx].first - damage/2),0), board[ny][nx].second };
 				isAvailableRepair[ny][nx] = false;
 			}
@@ -244,6 +244,18 @@ int getMaxDamage() {
 			damage = max(damage, board[i][j].first);
 
 	return damage;
+}
+
+void printAttackTime() {
+	cout << "\n";
+	cout << "공격시간\n";
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			cout << board[i][j].second << " ";
+		}
+		cout << "\n";
+	}
+
 }
 
 int main() {
