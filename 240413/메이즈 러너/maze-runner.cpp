@@ -11,6 +11,8 @@ pair<int, int> playerLocation[11];
 int dx[4] = {0,0,-1,1};
 int dy[4] = {-1,1,0,0};
 
+int playerBoard[11][11];
+
 int getDistanceFromExit(int y, int x) {
 	return abs(y - exitY) + abs(x - exitX);
 }
@@ -56,7 +58,7 @@ bool isIncludePlayer(int y, int x) {
 }
 
 bool checkCondition(int y, int x, int squareSize) {
-	if (y + squareSize >= N || x + squareSize >= N)
+	if (y + squareSize > N || x + squareSize > N)
 		return false;
 	bool IncludePlayer = false;
 	bool IncludeExit = false;
@@ -133,11 +135,19 @@ void printBoard() {
 }
 
 void printPlayerLocation() {
-	
+	fill(&playerBoard[0][0], &playerBoard[0][0] + 11 * 11, 0);
 	for (int i = 1; i <= M; i++) {
 		if (!isEscaped[i])
-			cout << i << " : " << playerLocation[i].first << " " << playerLocation[i].second << "\n";
+			playerBoard[playerLocation[i].first][playerLocation[i].second] = i;
 	}
+
+	cout << "\n";
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++)
+			cout << playerBoard[i][j] << " ";
+		cout << "\n";
+	}
+
 }
 
 void rotateBoard() {
@@ -193,7 +203,7 @@ void printResult() {
 	for (int i = 1; i <= M; i++)
 		sum += moveDistance[i];
 
-	cout << sum << "\n" << exitY + 1 << " " << exitX + 1<< "\n";
+	cout << sum << "\n" << exitY + 1 << " " << exitX + 1 << "\n";
 }
 
 int main() {
@@ -230,7 +240,6 @@ int main() {
 		moveAll();
 
 		rotateBoard();
-		
 
 		if (isAllPlayerEscaped())
 			break;
