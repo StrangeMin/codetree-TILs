@@ -7,10 +7,10 @@
 using namespace std;
 
 int N, M,ret = INT_MAX;
-int bridge[16][12][12];
-int destination[12];
-int nextBridge[16][12][12];
-int nextDestination[12];
+int bridge[17][13][13];
+int destination[13];
+int nextBridge[17][13][13];
+int nextDestination[13];
 vector<pair<int, int>> candidate;
 
 int goToNextBottom(int index) {
