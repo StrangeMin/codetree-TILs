@@ -32,7 +32,7 @@ bool checkOverlap(int k, int M, int l) {
 	int start2 = (start1 == k) ? l : k;
 
 	// 두 구간이 겹치는지 확인
-	return start1 <= start2 + M && start2 <= start1 + M;
+	return start1 == start2 || start1 + M - 1 >= start2;
 }
 
 int main() {
