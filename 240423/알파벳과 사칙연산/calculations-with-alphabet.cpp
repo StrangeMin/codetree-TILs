@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int N, M, C, ret;
+int N, M, C, ret = INT_MIN;
 int board[11][11];
 string str;
 int alpha[26];
