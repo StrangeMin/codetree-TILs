@@ -32,7 +32,7 @@ void go(int index, int sum) {
 	}
 	else {
 		for (int i = 1; i <= 4; i++) {
-			alpha[str[index + 2]] = i;
+			alpha[str[index + 2] - 'a'] = i;
 			go(index + 2, calculate(sum, str[index + 1], i));
 		}
 	}
