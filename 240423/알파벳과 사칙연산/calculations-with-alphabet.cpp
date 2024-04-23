@@ -34,6 +34,7 @@ void go(int index, int sum) {
 		for (int i = 1; i <= 4; i++) {
 			alpha[str[index + 2] - 'a'] = i;
 			go(index + 2, calculate(sum, str[index + 1], i));
+			alpha[str[index + 2] - 'a'] = 0;
 		}
 	}
 	
@@ -50,6 +51,7 @@ int main() {
 	for (int i = 1; i <= 4; i++) {
 		alpha[str[0] - 'a'] = i;
 		go(0, i);
+		alpha[str[0] - 'a'] = 0;
 	}
 
 	cout << ret << "\n";
