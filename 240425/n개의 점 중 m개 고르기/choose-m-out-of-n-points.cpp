@@ -38,6 +38,7 @@ void combi(int start, vector<pair<int, int>> v) {
         }
 
         if (tmp < ret) {
+            ret = tmp;
             ret1 = dot1;
             ret2 = dot2;
         }
