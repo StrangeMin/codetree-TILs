@@ -13,6 +13,9 @@ int ret = INT_MAX;
 
 void go(int index, int sum, int prev) {
 	if (index == N-1) {
+		if (board[prev][0] == 0)
+			return;
+
 		ret = min(ret, sum + board[prev][0]);
 		return;
 	}
