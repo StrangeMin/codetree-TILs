@@ -9,7 +9,7 @@ using namespace std;
 int N, M, K;
 bool row[11];
 bool column[11];
-int board[51][51];
+int board[101][101];
 bool visited[51][51];
 int ret = INT_MIN;
 int dx[4] = { -1,0,1,0 };
