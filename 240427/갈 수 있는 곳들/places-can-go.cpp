@@ -10,7 +10,7 @@ int N, M, K;
 bool row[11];
 bool column[11];
 int board[101][101];
-bool visited[51][51];
+bool visited[101][101];
 int ret ;
 int dx[4] = { -1,0,1,0 };
 int dy[4] = { 0,-1,0,1 };
