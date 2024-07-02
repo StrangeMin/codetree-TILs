@@ -3,7 +3,7 @@
 using namespace std;
 
 int N;
-int dp[1001];
+long long dp[1001];
 
 
 int main() {
@@ -18,7 +18,7 @@ int main() {
     dp[3] = 22;
 
     for(int i=4; i<=N; i++){
-        dp[i] = ((dp[i-1] * 3 + dp[i-2] - dp[i-3]))%1000000007;
+        dp[i] = ((dp[i-1] * 3) %1000000007 + dp[i-2] %1000000007 - dp[i-3] %1000000007 )%1000000007;
     }
 
     cout << dp[N] << "\n";
