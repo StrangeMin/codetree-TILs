@@ -1,27 +1,28 @@
 #include <iostream>
 
+#define MAX_N 1000
+#define MOD 1000000007
+
 using namespace std;
 
-int N;
-long long dp[1001];
+int n;
 
+long long dp[MAX_N + 1];
 
 int main() {
-    
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+    // 입력:
+    cin >> n;
 
-    cin >> N;
+    dp[0] = 1;
     dp[1] = 2;
-    dp[2] = 7;
-    dp[3] = 22;
 
-    for(int i=4; i<=N; i++){
-        dp[i] = ((dp[i-1] * 3) + dp[i-2] - dp[i-3] )%1000000007;
+    
+    for(int i = 2; i <= n; i++) {
+        dp[i] = (dp[i - 1] * 2 + dp[i - 2] * 3) % MOD;
+        for(int j = i - 3; j >= 0; j--)
+            dp[i] = (dp[i] + dp[j] * 2) % MOD;
     }
-
-    cout << dp[N] << "\n";
-
+    
+    cout << dp[n];
     return 0;
 }
