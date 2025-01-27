@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -10,11 +11,13 @@ int dx[4] = {-1, 0, 1, 0};
 int dy[4] = {0, -1, 0, 1};
 int ret;
 int Time;
+vector<pair<int,int>> v;
 
 
 bool dfs(int y, int x){
 
     visited[y][x] = true;
+    v.push_back({y,x});
 
     for(int i=0; i<4; i++){
         int ny = y + dy[i];
@@ -40,6 +43,7 @@ void melting() {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             if (a[i][j] == 0) {
+                v.clear();
                 // 녹일 수 있는 물인지 판단
                 fill(&visited[0][0], &visited[0][0] + 200*200, 0);
                 if (!dfs(i,j)){
@@ -47,16 +51,18 @@ void melting() {
                 }
 
                 // 녹일 빙하 선택
-                for (int k = 0; k < 4; k++) {
-                    int ny = i + dy[k];
-                    int nx = j + dx[k];
+                for (auto e : v) {
+                    for(int k=0; k<4; k++){
+                        int ny = e.first + dy[k];
+                        int nx = e.second + dx[k];
 
-                    if (ny < 0 || ny >= N || nx < 0 || nx >= M)
-                        continue;
+                        if (ny < 0 || ny >= N || nx < 0 || nx >= M)
+                            continue;
 
-                    if (Next[ny][nx] == 1) {
-                        Next[ny][nx] = 0;
-                        cnt++;
+                        if (Next[ny][nx] == 1) {
+                            Next[ny][nx] = 0;
+                            cnt++;
+                        }
                     }
                 }
             }
@@ -103,7 +109,7 @@ int main() {
                 a[i][j] = Next[i][j];
             }
         }
-        
+
         // 다 녹았는지 체크
         if (isDone())
             break;
