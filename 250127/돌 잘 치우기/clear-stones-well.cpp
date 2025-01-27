@@ -14,7 +14,7 @@ int dy[4] = {0,-1,0,1};
 int ret;
 vector<pair<int,int>> candidate;
 
-void combi(int start, vector<pair<int,int>> v, int y, int x){
+void combi(int start, vector<pair<int,int>> v){
     if(v.size() == m){
 
         // 돌 삭제
@@ -22,12 +22,17 @@ void combi(int start, vector<pair<int,int>> v, int y, int x){
             grid[e.first][e.second] = 0;
         }
 
-        int tmp = 1;
-        
+        int tmp = 0;
         fill(&visited[0][0], &visited[0][0] + 100*100, 0);
+
         queue<pair<int,int>> q;
-        q.push({y,x});
-        visited[y][x] = 1;
+        for(int i=0; i<k; i++){
+            tmp++;
+            q.push({r[i],c[i]});
+            visited[r[i]][c[i]] = 1;
+        }
+
+        
 
         while(q.size()){
             int curY = q.front().first;
@@ -55,14 +60,12 @@ void combi(int start, vector<pair<int,int>> v, int y, int x){
             grid[e.first][e.second] = 1;
         }
 
-
-
         return;
     }
 
     for(int i=start+1; i<candidate.size(); i++){
         v.push_back(candidate[i]);
-        combi(start, v, y, x);
+        combi(start, v);
         v.pop_back();
     }
 }
@@ -83,10 +86,10 @@ int main() {
         cin >> r[i] >> c[i];
         r[i]--;
         c[i]--;
-
-        vector<pair<int,int>> v;
-        combi(-1, v, r[i], c[i]);
     }
+
+    vector<pair<int,int>> v;
+    combi(-1, v);
     // Write your code here!
 
     cout << ret << "\n";
