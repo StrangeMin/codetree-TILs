@@ -65,7 +65,7 @@ void combi(int start, vector<pair<int,int>> v){
 
     for(int i=start+1; i<candidate.size(); i++){
         v.push_back(candidate[i]);
-        combi(start, v);
+        combi(i, v);
         v.pop_back();
     }
 }
