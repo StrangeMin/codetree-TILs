@@ -12,10 +12,11 @@ int dy[4] = { 0, -1, 0, 1 };
 int ret;
 int Time;
 int iceCnt;
+bool av;
 vector<pair<int, int>> v;
 
 
-bool dfs(int y, int x) {
+void dfs(int y, int x) {
 
     visited[y][x] = true;
     v.push_back({ y,x });
@@ -25,18 +26,17 @@ bool dfs(int y, int x) {
         int nx = x + dx[i];
 
         if (ny < 0 || ny >= N || nx < 0 || nx >= M) {
-            return true;
-            break;
+            av = true;
+            continue;
         }
 
         if (a[ny][nx] == 0 && !visited[ny][nx]) {
-            if (dfs(ny, nx))
-                return true;
+            dfs(ny, nx);
+                
         }
 
     }
 
-    return false;
 }
 
 void melting() {
@@ -48,7 +48,10 @@ void melting() {
                 v.clear();
                 // 녹일 수 있는 물인지 판단
                 
-                if (!dfs(i, j)) {
+                av = false;
+                dfs(i, j);
+
+                if (!av) {
                     continue;
                 }
 
