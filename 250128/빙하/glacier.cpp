@@ -44,9 +44,10 @@ void melting() {
     fill(&visited[0][0], &visited[0][0] + 200 * 200, 0);
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
-            if (a[i][j] == 0) {
+            if (a[i][j] == 0 && !visited[i][j]) {
                 v.clear();
                 // 녹일 수 있는 물인지 판단
+                
                 if (!dfs(i, j)) {
                     continue;
                 }
