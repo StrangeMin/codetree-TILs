@@ -22,7 +22,7 @@ void getJumpCnt(int y, int x){
 
 void printArr(){
     for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
+        for(int j=0; j<m; j++){
             cout << dp[i][j] << " ";
         }
         cout << "\n";
@@ -41,7 +41,7 @@ int main() {
         dp[0][i] = 1;
 
     for(int i=1; i<n; i++){
-        for(int j=1; j<n; j++){
+        for(int j=1; j<m; j++){
             getJumpCnt(i,j);
         }
     }
@@ -49,6 +49,6 @@ int main() {
     //printArr();
     // Write your code here!
     cout << ret << "\n";
-    
+
     return 0;
 }
