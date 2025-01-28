@@ -6,16 +6,18 @@ using namespace std;
 int n, m;
 int grid[50][50];
 int dp[50][50];
-int ret;
+int ret =1;
 
 void getJumpCnt(int y, int x){
+    if(dp[y][x] == 0)
+        return;
 
-    for(int i=0; i<=y-1; i++){
-        for(int j=0; j<=x-1; j++){
-            if(grid[y][x] > grid[i][j])
-                dp[y][x] = max(dp[y][x], dp[i][j] + 1);
+    for(int i=y+1; i<n; i++){
+        for(int j=x+1; j<m; j++){
+            if(grid[y][x] < grid[i][j])
+                dp[i][j] = max(dp[i][j], dp[y][x] + 1);
 
-            ret = max(ret, dp[y][x]);
+            ret = max(ret, dp[i][j]);
         }
     }
 }
@@ -37,11 +39,11 @@ int main() {
         }
     }
 
-    for(int i=0; i<m; i++)
-        dp[0][i] = 1;
+    
+    dp[0][0] = 1;
 
-    for(int i=1; i<n; i++){
-        for(int j=1; j<m; j++){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
             getJumpCnt(i,j);
         }
     }
