@@ -41,12 +41,12 @@ bool dfs(int y, int x) {
 
 void melting() {
     int cnt = 0;
+    fill(&visited[0][0], &visited[0][0] + 200 * 200, 0);
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             if (a[i][j] == 0) {
                 v.clear();
                 // 녹일 수 있는 물인지 판단
-                fill(&visited[0][0], &visited[0][0] + 200 * 200, 0);
                 if (!dfs(i, j)) {
                     continue;
                 }
