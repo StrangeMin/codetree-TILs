@@ -43,7 +43,7 @@ int getCost(int idx){
     if(idx == -1)
         return 0;
     else
-        return get<2>(v[idx]);
+        return dp[idx];
 }
 
 int main() {
@@ -52,6 +52,7 @@ int main() {
     for (int i = 0; i < N; i++) {
         cin >> s[i] >> e[i] >> p[i];
         v.push_back(make_tuple(s[i],e[i],p[i]));
+        
     }
 
     sort(v.begin(), v.end(), cmp);
@@ -60,7 +61,6 @@ int main() {
 
     for(int i=1; i<N; i++){
         int idx = getIdx(i);
-
         dp[i] = max(dp[i-1], getCost(idx) + get<2>(v[i]));
     }
     // Write your code here!
