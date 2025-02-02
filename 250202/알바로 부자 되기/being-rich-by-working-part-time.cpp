@@ -57,11 +57,12 @@ int main() {
 
     sort(v.begin(), v.end(), cmp);
 
-    dp[0] = p[0];
+    dp[0] = get<2>(v[0]);
 
     for(int i=1; i<N; i++){
         int idx = getIdx(i);
         dp[i] = max(dp[i-1], getCost(idx) + get<2>(v[i]));
+        
     }
     // Write your code here!
 
@@ -69,3 +70,4 @@ int main() {
 
     return 0;
 }
+
