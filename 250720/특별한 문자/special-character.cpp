@@ -7,8 +7,8 @@ string str;
 pair<int,int> arr[26];
 
 int findIdx(){
-    int idx = 100;
-    int retIdx = 100;
+    int idx = str.size();
+    int retIdx = -1;
     for(int i=0; i<26; i++){
         if(arr[i].first == 1 && arr[i].second < idx){
             idx = arr[i].second;
@@ -28,7 +28,7 @@ int main() {
 
     int idx = findIdx();
 
-    if(idx == 100)
+    if(idx == -1)
         cout << "None" << "\n";
     else
         cout << (char)(idx+97) << "\n";
