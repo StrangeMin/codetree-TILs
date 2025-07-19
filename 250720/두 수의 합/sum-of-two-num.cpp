@@ -1,6 +1,5 @@
 #include <iostream>
 #include <unordered_map>
-#define long long ll;
 using namespace std;
 
 int n, k;
