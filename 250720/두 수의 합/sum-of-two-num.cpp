@@ -16,7 +16,7 @@ int main() {
     }
 
     for(auto it : m){
-        int tmp = k - it.first;
+        long long tmp = k - it.first;
 
         if(tmp == it.first){
             ret += (it.second *(it.second-1))/2;
