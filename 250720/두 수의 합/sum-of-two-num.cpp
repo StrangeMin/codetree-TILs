@@ -1,10 +1,10 @@
 #include <iostream>
-#include <unordered_map>
+#include <map>
 using namespace std;
 
 int n, k;
 int arr[100000];
-unordered_map<long long,long long> m;
+map<long long,long long> m;
 long long ret;
 
 int main() {
@@ -22,7 +22,7 @@ int main() {
             ret += (it.second *(it.second-1))/2;
         }
         else if(m[tmp] != 0){
-            ret += it.second;
+            ret += it.second * m[tmp];
             m[tmp] = 0;
         }
     }
