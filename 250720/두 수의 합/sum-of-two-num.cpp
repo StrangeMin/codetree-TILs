@@ -19,7 +19,10 @@ int main() {
     for(auto it : m){
         int tmp = k - it.first;
 
-        if(m[tmp] != 0){
+        if(tmp == it.first){
+            ret += (it.second *(it.second-1))/2;
+        }
+        else if(m[tmp] != 0){
             ret += it.second;
             m[tmp] = 0;
         }
