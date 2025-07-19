@@ -5,8 +5,8 @@ using namespace std;
 
 int n, k;
 int arr[100000];
-unordered_map<int,int> m;
-int ret;
+unordered_map<ll,ll> m;
+ll ret;
 
 int main() {
     cin >> n >> k;
