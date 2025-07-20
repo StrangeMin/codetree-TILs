@@ -22,13 +22,6 @@ int main() {
 
     for (int i = 0; i < K; i++) {
         cin >> a[i] >> b[i];
-
-        int man1 = sit[a[i]]; // a[i] 번째 사람의 번호
-        int man2 = sit[b[i]]; // b[i] 번째 사람의 번호
-
-        s[man1].insert(b[i]);
-        s[man2].insert(a[i]);
-        swap(a[i], b[i]);
     }
 
     for(int i=0; i<3*K; i++){
